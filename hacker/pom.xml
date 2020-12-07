@@ -41,6 +41,16 @@
       <artifactId>bridj</artifactId>
       <version>0.7.0</version>
     </dependency>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna-platform</artifactId>
+      <version>5.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.java.net.substance</groupId>
+      <artifactId>substance</artifactId>
+      <version>5.3</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -87,5 +97,15 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>9</source>
+          <target>9</target>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>
