@@ -36,7 +36,7 @@ public class ServerApp {
             Thread thread_screenCapture = new Thread() {
                 public void run() {
                     try {
-                        ServerScreenMonitor.screencapture();
+                        ServerScreenMonitor.screenCapture();
                     } catch (Exception e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -148,9 +148,10 @@ class Thread_Pool extends Thread {
                 e.printStackTrace();
             }
         } else if (methods.equals("cmd")) {
-            ServerCmd ServerCmd = new ServerCmd(port_cmd);
+            // 全是静态方法，也没有修改端口，毫无必要建动态类
+            //ServerCmd ServerCmd = new ServerCmd(port_cmd);
             try {
-                ServerCmd.sendresult();
+                ServerCmd.sendResult();
             } catch (UnknownHostException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -383,7 +384,6 @@ class ServerFileReceive {
             }
         }
     }
-
 }
 
 class ServerProcManager {
@@ -531,7 +531,6 @@ class ServerProcManager {
             }
         }
     }
-
 }
 
 class ServerCameraManager {

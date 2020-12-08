@@ -12,21 +12,10 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 public class ServerCmd {
-    static int commandport = 7888;
-    static String cmd = null;
+    public static int commandport = 7888;
+    public static String cmd = null;
 
-    public ServerCmd(int port) {
-        // TODO Auto-generated constructor stub
-        if (port != 0)
-            this.commandport = port;
-    }
-
-    public void setport(int port) { // ÉèÖÃ¶Ë¿ÚºÅ
-        this.commandport = port;
-    }
-
-    public String executecommand() { // Ö´ÐÐÃüÁî
-        System.out.println("---ÕýÔÚÖ´ÐÐexecutecommand---");
+    public static String executeCommand() { // Ö´ÐÐÃüÁî
         StringBuilder sb = new StringBuilder();
         try {
             Process process = Runtime.getRuntime().exec(cmd);
@@ -43,7 +32,7 @@ public class ServerCmd {
         return sb.toString();
     }
 
-    public void sendresult() throws UnknownHostException, IOException { // ·¢ËÍ½á¹û
+    public static void sendResult() throws UnknownHostException, IOException {
         ServerSocket commandSocket = null;
         try {
             commandSocket = new ServerSocket(commandport);
@@ -54,7 +43,7 @@ public class ServerCmd {
         }
 
         if (commandSocket != null) {
-            while (true) {
+            while (Flag.isWorking) {
                 try {
                     Socket socket = commandSocket.accept();
                     DataInputStream in = new DataInputStream(
@@ -64,7 +53,7 @@ public class ServerCmd {
 							socket.getOutputStream());*/
                     if (cmd != null) {
                         BufferedWriter out=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(),"GBK"));
-                        out.write(executecommand());
+                        out.write(executeCommand());
                         out.close();
                         /*commandWriter.println(executecommand());*/
                         System.out.println("ÊÕµ½ÃüÁî");

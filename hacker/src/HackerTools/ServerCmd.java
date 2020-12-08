@@ -12,8 +12,8 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 public class ServerCmd {
-    static int commandport = 7888;
-    static String cmd = null;
+    public static int commandport = 7888;
+    public static String cmd = null;
 
     public ServerCmd(int port) {
         // TODO Auto-generated constructor stub

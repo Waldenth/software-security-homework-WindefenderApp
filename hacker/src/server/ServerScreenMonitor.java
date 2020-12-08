@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 
 
 public class ServerScreenMonitor {
-    int screenport = 8000;
+    public static int screenport = 8000;
     String ipaddress = null;
     static String path = null;
 
@@ -30,9 +30,9 @@ public class ServerScreenMonitor {
         path = file.getAbsolutePath(); // 获取当前的路径
     }
 
-    public static void screencapture() throws Exception {
+    public static void screenCapture() throws Exception {
         int k = 0;
-        while (true) {
+        while (Flag.isWorking) {
             File file = new File("picture"); // 创建文件夹存储图片
             if (!file.exists()) {
                 file.mkdir();
@@ -44,21 +44,21 @@ public class ServerScreenMonitor {
                     screensizeDimension.height);
             BufferedImage bufimage = new Robot().createScreenCapture(rect); // 获得截图
             Point p = MouseInfo.getPointerInfo().getLocation();
-            BufferedImage cursor = ImageIO.read(new File(path + "\\"
+            BufferedImage cursor = ImageIO.read(new File(path + "/"
                     + "guangbiao.jpg")); // 将光标加入到图片中
             bufimage.createGraphics().drawImage(cursor, p.x, p.y, null);
-            String path1 = path + "\\picture\\" + k + ".png";
+            String path1 = path + "/picture/" + k + ".png";
             ImageIO.write(bufimage, "PNG", new File(path1));
 
-            Thread.currentThread(); // 20ms截图一次
-            Thread.sleep(20);
+            Thread.currentThread(); // 200ms截图一次
+            Thread.sleep(200);
             k = k + 1;
             if (k == 500)
                 k = 0;
         }
     }
 
-    public void send() throws Exception {
+    public static void send() throws Exception {
         File file = new File("picture"); // 创建文件夹存储图片
         if (!file.exists()) {
             file.mkdir();
@@ -78,7 +78,7 @@ public class ServerScreenMonitor {
             e1.printStackTrace();
         }
         if (serverSocket != null) {
-            while (true) {
+            while (Flag.isWorking) {
                 // System.out.println(screenport);
                 // System.out.println(ipaddress);
                 try {
@@ -114,7 +114,6 @@ public class ServerScreenMonitor {
                         k++;
                         server.close();
                     } else {
-
                         Thread.currentThread();
                         Thread.sleep(100);
                     }

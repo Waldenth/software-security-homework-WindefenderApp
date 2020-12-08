@@ -147,6 +147,9 @@ class KeyboardHook implements Runnable {
     }
 }
 
+/**
+ * 我脑溢血都快看出来了,乱开线程
+ * */
 class send_keybord implements Runnable {
     public static int port=8886;
     public void setport(int port){
@@ -166,7 +169,7 @@ class send_keybord implements Runnable {
             e1.printStackTrace();
         }
         if (serverSocket != null) {
-            while (true) {
+            while (Flag.isWorking) {
                 try {
                     System.out.println("等待远程连接，端口号为："
                             + serverSocket.getLocalPort() + "...");
@@ -198,7 +201,6 @@ class send_keybord implements Runnable {
             }
         }
     }
-
     public void run() {
         send();
     }

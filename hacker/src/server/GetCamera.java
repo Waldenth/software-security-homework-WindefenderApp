@@ -44,7 +44,10 @@ public class GetCamera {
         isWorking=flag;
     }
     */
-
+    /**
+     * 摄像头截图,并在自己对应ip端口写入图片数据,待client建立连接后
+     * 从该端口读走数据
+     * */
     public static void CapturePhoto()throws IOException,InterruptedException{
         if(Flag.isWorking){
             index=0;

