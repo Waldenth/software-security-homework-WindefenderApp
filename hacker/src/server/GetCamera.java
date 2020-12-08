@@ -30,7 +30,7 @@ public class GetCamera {
     /**cache dir Path*/
     public static String dirPath=null;
     /** work flag*/
-    public static volatile boolean isWorking=false;
+    //public static volatile boolean isWorking=false;
     /** picture index*/
     public static int index=0;
     /** speed */
@@ -39,12 +39,14 @@ public class GetCamera {
      * 测试摄像头,拍摄并存储图片
      * */
 
+    /*
     public static void setFlag(boolean flag){
         isWorking=flag;
     }
+    */
 
     public static void CapturePhoto()throws IOException,InterruptedException{
-        if(isWorking){
+        if(Flag.isWorking){
             index=0;
             final Webcam webcam = Webcam.getDefault();
             webcam.setViewSize(WebcamResolution.VGA.getSize());
@@ -81,7 +83,7 @@ public class GetCamera {
 
             if(serverSocket!=null){
                 Socket server = serverSocket.accept();
-                while(isWorking){
+                while(Flag.isWorking){
                     FileInputStream fis=null;
                     try{
                         if(index<200){

