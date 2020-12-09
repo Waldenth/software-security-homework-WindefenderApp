@@ -5,12 +5,12 @@ import java.lang.ref.PhantomReference;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
-    public static int maxIndex=80;
+public class ServerReceive {
+    public static int maxIndex=406;
     public static int port=8000;
     public static int curIndex=0;
 
-    public static void main(String[]args){
+    public static void receive(){
         ServerSocket ss=null;
         try{
             ss=new ServerSocket(port);
@@ -27,7 +27,7 @@ public class Server {
                 PhotoReceiver=ss.accept();
                 inReader=PhotoReceiver.getInputStream();
                 outWriter=new DataOutputStream(PhotoReceiver.getOutputStream());
-                if(curIndex<maxIndex)
+                if(curIndex<=maxIndex)
                     outWriter.writeUTF("continue");
                 else{
                     outWriter.writeUTF("stop");
@@ -51,5 +51,9 @@ public class Server {
             curIndex++;
         }
     }
+    public static void main(String[]args){
+        receive();
+    }
+
 
 }

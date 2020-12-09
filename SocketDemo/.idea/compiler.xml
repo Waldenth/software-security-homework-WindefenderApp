@@ -9,5 +9,8 @@
         <module name="SocketDemo" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SocketDemo" target="9" />
+    </bytecodeTargetLevel>
   </component>
 </project>
