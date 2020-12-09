@@ -183,7 +183,7 @@ public class GetCamera {
                         }
                         server.shutdownOutput();
 
-                        //????为什么要客户端要搞个接受输入?
+                        //????为什么要server端要搞个接受输入?
                         InputStream in = server.getInputStream();
 
                         byte[] bufin = new byte[1024];

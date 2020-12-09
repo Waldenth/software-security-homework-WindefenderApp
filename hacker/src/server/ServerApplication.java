@@ -51,6 +51,9 @@ public class ServerApplication {
                 break;
             }else{
                 switch (commandNumber){
+                    case 0:
+                        Flag.setFlag(false);
+                        break;
                     case 1: //Camera
                         Thread myServerCamera=new Thread(){
                             public void run(){
