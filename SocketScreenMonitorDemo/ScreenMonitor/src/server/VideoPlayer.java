@@ -2,6 +2,8 @@ package server;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,11 +13,14 @@ import javax.swing.JPanel;
 
 
 
+
 public class VideoPlayer {
 	public static volatile int curIndex=0;
 	public static volatile int receiveState=0;//0无需接收;1需要接收,2正在接收
 	
 	public static Image image=new ImageIcon("ReceiveCache0/screenShot0.jpg").getImage();
+	
+	public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public static void play() {
 		JFrame playerJF=new JFrame("Neptune");
 		playerJF.setSize(960,540);
@@ -38,8 +43,8 @@ public class VideoPlayer {
 				curIndex++;
 				if(curIndex==101) {
 					curIndex=0;
-					GlobalVarServerRepo.playerRepoNum=(GlobalVarServerRepo.playerRepoNum+1)%2;
-					GlobalVarServerRepo.storeRepoNum=(GlobalVarServerRepo.storeRepoNum+1)%2;
+					GlobalVarServerRepo.playerRepoNum=(GlobalVarServerRepo.playerRepoNum+1)%3;
+					GlobalVarServerRepo.storeRepoNum=(GlobalVarServerRepo.storeRepoNum+1)%3;
 					receiveState=1;
 				}
 			}
@@ -52,11 +57,14 @@ public class VideoPlayer {
 				// TODO 自动生成的方法存根
 				if(receiveState==1) {
 					receiveState=2;
+					System.out.println("[Log]:"+df.format(new Date())+" Receive in repo "+GlobalVarServerRepo.storeRepoNum);
 					Receiver.receive(GlobalVarServerRepo.storeRepoNum);
 					receiveState=0;
+				}else {
+					System.out.println("[Log]: Thread give up");
 				}
 			}
-		},0,200);
+		},0,400);
 		
 	}
 	

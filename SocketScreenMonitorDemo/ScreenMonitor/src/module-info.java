@@ -1,3 +1,3 @@
-module screenMonitor {
-	requires java.desktop;
+interface screenMonitor {
+	
 }

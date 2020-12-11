@@ -80,6 +80,13 @@ public class ServerGUI extends JFrame {
 				FirstReceive firstReceive=new FirstReceive(ipString);
 				tipFrame.setPriority(Thread.MAX_PRIORITY);
 				tipFrame.start();
+				try {
+					Thread.sleep(100);
+				}catch (Exception waitE) {
+					// TODO: handle exception
+					waitE.printStackTrace();
+				}
+				firstReceive.setPriority(Thread.MIN_PRIORITY);
 				firstReceive.start();
 				while(!firstFinished) {
 					try {
@@ -89,22 +96,16 @@ public class ServerGUI extends JFrame {
 						exception.printStackTrace();
 					}
 				}
-				tipFrame.jf.dispose();
+				WaitingTip.jf.dispose();
+				GlobalVarServerRepo.storeRepoNum=1;
 				VideoPlayer.play();
 			}
 		});
 	}
 	
 	static class TipFrame extends Thread{
-		public static JFrame jf=new JFrame("wait");
-		public static JLabel waitTipLabel = new JLabel("wait image data....");
 		public void run() {
-			jf.setSize(200,150);
-			jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			jf.setLocationRelativeTo(null);
-			waitTipLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-			jf.getContentPane().add(waitTipLabel);
-			jf.setVisible(true);
+			WaitingTip.show();
 		}
 	}
 	class FirstReceive extends Thread{
@@ -114,6 +115,7 @@ public class ServerGUI extends JFrame {
 		}
 		public void run() {
 			Receiver.receive(0);
+			Receiver.receive(1);
 			firstFinished=true;
 		}
 	}
