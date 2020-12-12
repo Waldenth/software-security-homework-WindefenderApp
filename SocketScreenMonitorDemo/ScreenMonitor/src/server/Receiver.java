@@ -22,14 +22,17 @@ public class Receiver {
             			+String.valueOf(curIndex)+"."+GlobalVarServerRepo.screenShotTypeStr);
             	
             	// for jdk1.8
-            	//int len=0;
-            	//byte[]buffer=new byte[1024000];//1MB
-            	//while((len=inReader.read(buffer))!=-1) {
-            	//	fileWriter.write(buffer,0,len);
-            	//}
+            	int len=0;
+            	byte[]buffer=new byte[1024000];//1MB
+            	while((len=inReader.read(buffer))!=-1) {
+            		fileWriter.write(buffer,0,len);
+            	}
             	
-            	byte[]buffer=inReader.readAllBytes();
-            	fileWriter.write(buffer);
+            	// for jdk 14
+            	//byte[]buffer=inReader.readAllBytes();
+            	//fileWriter.write(buffer);
+            	
+            	
             }catch (Exception e) {
 				// TODO: handle exception
             	e.printStackTrace();

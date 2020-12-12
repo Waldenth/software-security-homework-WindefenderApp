@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 import javax.swing.JButton;
 
 public class ServerGUI extends JFrame {
@@ -76,17 +77,34 @@ public class ServerGUI extends JFrame {
 				Receiver.check();
 				// TODO 自动生成的方法存根
 				String ipString=ipTextField.getText();
+				GlobalVarServerRepo.clientIP=ipString;
+				System.out.println("Now you are trying to connect to "+GlobalVarServerRepo.clientIP);
+				/*
 				TipFrame tipFrame=new TipFrame();
-				FirstReceive firstReceive=new FirstReceive(ipString);
 				tipFrame.setPriority(Thread.MAX_PRIORITY);
 				tipFrame.start();
-				try {
-					Thread.sleep(100);
-				}catch (Exception waitE) {
-					// TODO: handle exception
-					waitE.printStackTrace();
-				}
-				firstReceive.setPriority(Thread.MIN_PRIORITY);
+				*/
+				WaitingTip waiTip=new WaitingTip();
+				waiTip.show();
+				new SwingWorker<Void, Void>() {  
+			        @Override  
+			        protected Void doInBackground() {  
+			        	Receiver.receive(0);
+						Receiver.receive(1);
+						firstFinished=true;
+			        	return null;
+			        }  
+			        @Override  
+			        protected void done() {  
+			            waiTip.jf.dispose();
+			            GlobalVarServerRepo.storeRepoNum=1;
+						VideoPlayer.play();
+			        }  
+			    }.execute();  
+			    
+				
+				/*
+				FirstReceive firstReceive=new FirstReceive(ipString);
 				firstReceive.start();
 				while(!firstFinished) {
 					try {
@@ -97,15 +115,17 @@ public class ServerGUI extends JFrame {
 					}
 				}
 				WaitingTip.jf.dispose();
-				GlobalVarServerRepo.storeRepoNum=1;
-				VideoPlayer.play();
+				
+				*/
 			}
 		});
 	}
 	
-	static class TipFrame extends Thread{
+	/*
+	class TipFrame extends Thread{
 		public void run() {
-			WaitingTip.show();
+			WaitingTip waiTip=new WaitingTip();
+			waiTip.show();
 		}
 	}
 	class FirstReceive extends Thread{
@@ -119,6 +139,7 @@ public class ServerGUI extends JFrame {
 			firstFinished=true;
 		}
 	}
+	*/
 }
 
 
